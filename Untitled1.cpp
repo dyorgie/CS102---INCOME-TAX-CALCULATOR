@@ -187,8 +187,87 @@ void TaxDue_Dependent() {
 
 // REPEAT PROGRAM
 
-void repeatProgram(){
+void promptRepeat() {
+}
 
+void repeatProgram(){	
+	char answer;
+	
+	cout << "\n------------------------------------";
+	cout << "\n------------------------------------";
+	cout << "" << endl << endl;
+	
+	cout << "Do you want to repeat the program? (y/n): ";
+	cin >> answer;
+	
+	if (answer == 'n' || answer == 'N'){
+		cout << "\n------------------------------------";
+		cout << "\n------------------------------------";
+		cout << "" << endl << endl;
+		cout << "Thank you for using the program.";
+		exit(1);
+	}
+	
+	if (answer != 'n' && answer != 'N' && answer != 'y' && answer != 'Y'){
+		cout << "Enter valid answer.";
+		repeatProgram();
+	}
+	
+	do {
+		
+	cout << "\n------------------------------------";
+	cout << "\n------------------------------------";
+	cout << "" << endl << endl;
+	
+	cout << "\n------------------------------------";
+	cout << "\n------------------------------------";
+	cout << "" << endl << endl;
+		
+	cout << "Enter Name: \t\t\t";
+	cin.ignore();
+	getline(cin, name);
+	
+	cout << "TIN: \t\t\t\t";
+	cin >> TIN;
+	
+	cout << "Gross Income: \t\t\t";
+	cin >> grossIncome;
+	
+	cout << "Civil Status(S/M/H): \t\t";
+	cin >> civilStatus;
+	
+	if(civilStatus == 'S' || civilStatus == 's'){
+		cout << "\n------------------------------------";
+		cout << "\n------------------------------------";
+		cout << "" << endl << endl;
+		PersonalDeduction_NoDependent();
+		TaxDue_NoDependent();
+	} 
+	else if (civilStatus == 'M' || civilStatus == 'm' || civilStatus == 'h' || civilStatus == 'H'){
+		cout << "No. of dependents(max of 4): \t";
+		cin >> dependents;
+		
+		if (dependents <= 4) {
+			cout << "\n------------------------------------";
+			cout << "\n------------------------------------";
+			cout << "" << endl << endl;
+			TaxDue_Dependent();
+		} else {
+			cout << "\nSorry, the maximum of dependents is 4. Kindly re-enter your information.";
+			repeatProgram();
+		}
+		
+	} else {
+		cout << "\nEnter valid civil status value.";
+		repeatProgram();
+	}
+	
+	cout << "\n------------------------------------";
+	cout << "\n------------------------------------";
+	cout << "" << endl << endl;
+	
+	repeatProgram();
+	} while (answer == 'y' || answer == 'Y');
 }
 	
 int main(){
@@ -223,17 +302,21 @@ int main(){
 			TaxDue_Dependent();
 		} else {
 			cout << "\nSorry, the maximum of dependents is 4. Kindly re-enter your information.";
-			// repeat program function
+			repeatProgram();
 		}
 		
 	} else {
 		cout << "\nEnter valid civil status value.";
-		// repeat program function
+		repeatProgram();
 	}
 	
 	cout << "\n------------------------------------";
 	cout << "\n------------------------------------";
 	cout << "" << endl << endl;
+	
+	repeatProgram();
+	
+	
 	
 	return 0;
 }
